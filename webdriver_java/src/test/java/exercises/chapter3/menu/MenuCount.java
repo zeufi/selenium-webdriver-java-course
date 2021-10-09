@@ -12,7 +12,11 @@ public class MenuCount {
     private WebDriver driver;
 
     public void printLinkCount(){
-        System.setProperty("webdriver.chrome.driver", "resources/chromedriver");
+        var driverExtention = "";
+        if(System.getenv("RUNNER_OS") != null) {
+            driverExtention = "-linux";
+        };
+        System.setProperty("webdriver.chrome.driver", "resources/chromedriver" + driverExtention);
         driver = new ChromeDriver();
         driver.get("https://the-internet.herokuapp.com/");
         driver.findElement(By.linkText("Shifting Content")).click();
