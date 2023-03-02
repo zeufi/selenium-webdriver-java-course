@@ -35,5 +35,9 @@ jobs:
         run: mvn test
         # Calculate total duration Make sure to run even if a previous step fails
       - name: Collect build data
+        working-directory: webdriver_java
         if: always()
-        run: expr $(date +%s) - ${START_TIME}
+        run: |
+          echo "TOTAL_DURATION=$(expr $(date +%s) - ${START_TIME})"
+        # Run the script to extract test results
+          ./resources/test_result_script.sh
