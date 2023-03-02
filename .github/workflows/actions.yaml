@@ -14,5 +14,19 @@ jobs:
 
   build_and_test:
     runs-on: ubuntu-latest
+    env:
+      RUNNER_OS: true
+      HEADLESS_CHROME: true
+
     steps:
       - uses: actions/checkout@v2
+        # install java
+      - uses: actions/setup-java@v2
+        with:
+          distribution: 'zulu'
+          java-version: 11
+        # Run: mvn test
+      - name: Run tests with maven
+        working-directory: webdriver_java
+        run: mvn test
+        # Handle remote server chromedriver
