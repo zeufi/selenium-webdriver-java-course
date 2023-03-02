@@ -93,8 +93,4 @@ public class HomePage {
         clickLink("Frames");
         return new FramesPage(driver);
     }
-
-
-
-
 }

@@ -11,8 +11,8 @@ public class FileUploadTests extends BaseTests {
 
     @Test
     public void testFileUpload(){
-        var uploadPage = homePage.clickFileUpload();
-        var currentWorkingDir = Paths.get(".").toAbsolutePath().normalize().toString();
+        pages.FileUploadPage uploadPage = homePage.clickFileUpload();
+        String currentWorkingDir = Paths.get(".").toAbsolutePath().normalize().toString();
         uploadPage.uploadFile(currentWorkingDir + "/resources/puppy_and_kitten.jpg");
         assertEquals(uploadPage.getUploadedFiles(), "puppy_and_kitten.jpg", "Uploaded files incorrect");
     }

@@ -9,7 +9,7 @@ public class AlertTests extends BaseTests {
 
     @Test
     public void testAcceptAlert(){
-        var alertsPage = homePage.clickJavaScriptAlerts();
+        pages.AlertsPage alertsPage = homePage.clickJavaScriptAlerts();
         alertsPage.triggerAlert();
         alertsPage.alert_clickToAccept();
         assertEquals(alertsPage.getResult(), "You successfully clicked an alert", "Results text incorrect");
@@ -17,7 +17,7 @@ public class AlertTests extends BaseTests {
 
     @Test
     public void testGetTextFromAlert(){
-        var alertsPage = homePage.clickJavaScriptAlerts();
+        pages.AlertsPage alertsPage = homePage.clickJavaScriptAlerts();
         alertsPage.triggerConfirm();
         String text = alertsPage.alert_getText();
         alertsPage.alert_clickToDismiss();
@@ -26,7 +26,7 @@ public class AlertTests extends BaseTests {
 
     @Test
     public void testSetInputInAlert(){
-        var alertsPage = homePage.clickJavaScriptAlerts();
+        pages.AlertsPage alertsPage = homePage.clickJavaScriptAlerts();
         alertsPage.triggerPrompt();
 
         String text = "TAU rocks!";

@@ -22,7 +22,7 @@ public class BaseTests {
 
     @BeforeClass
     public void setUp(){
-        var driverExtention = "";
+        String driverExtention = "";
         if(System.getenv("RUNNER_OS") != null) {
             driverExtention = "-linux";
         };
@@ -46,7 +46,7 @@ public class BaseTests {
     public void recordFailure(ITestResult result){
         if(ITestResult.FAILURE == result.getStatus())
         {
-            var camera = (TakesScreenshot)driver;
+            TakesScreenshot camera = (TakesScreenshot)driver;
             File screenshot = camera.getScreenshotAs(OutputType.FILE);
             try{
                 Files.move(screenshot, new File("resources/screenshots/" + result.getName() + ".png"));
@@ -65,7 +65,7 @@ public class BaseTests {
         options.addArguments("disable-infobars");
 
         // Default headless mode off, set to true based on env var
-        var headless = Boolean.parseBoolean(System.getenv("HEADLESS_CHROME")) | false;
+        boolean headless = Boolean.parseBoolean(System.getenv("HEADLESS_CHROME")) | false;
         options.setHeadless(headless);
         return options;
     }
