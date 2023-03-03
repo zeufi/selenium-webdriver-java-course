@@ -35,7 +35,9 @@ jobs:
         # Calculate total duration Make sure to run even if a previous step fails
       - name: Collect build data
         working-directory: webdriver_java
+        env:
+          PUSHGATEWAY_URL: ${{ secrets.PUSHGATEWAY_URL }}
         if: always()
         run: |
-          echo "github_actions_total_duration $(expr $(date +%s) - ${START_TIME})" | curl --data-binary @- ${{secrets.PUSHGATEWAY_URL}}/metrics/job/github_actions
+          echo "github_actions_total_duration $(expr $(date +%s) - ${START_TIME})" | curl --data-binary @- ${secrets.PUSHGATEWAY_URL}/metrics/job/github_actions
           ./resources/test_result_script.sh
