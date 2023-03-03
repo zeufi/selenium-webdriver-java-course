@@ -3,9 +3,9 @@ name: on_push
 
 # When the event should run
 on:
-#  push:
-#    branch:
-#      - "**" # This will run on all branches and must be quoted to be handled by yaml
+  push:
+    branch:
+      - "**" # This will run on all branches and must be quoted to be handled by yaml
   schedule:
     - cron: '*/3 * * * *' # This will run every 10th minute. Calculated with: https://crontab.guru/#*/10_*_*_*_*
 
@@ -23,6 +23,12 @@ jobs:
       # Set a start time
       - name: Set start time
         run: echo "START_TIME=$(date +%s)" >> $GITHUB_ENV
+      - uses: kvrhdn/gha-buildevents@v1
+        with:
+          apikey: ${{ secrets.BUILDEVENTS_APIKEY }}
+          dataset: tau-build-pipeline
+          job-status: ${{ job.status }}
+
       - uses: actions/checkout@v2
         # install java
       - uses: actions/setup-java@v2
