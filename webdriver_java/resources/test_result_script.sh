@@ -18,3 +18,9 @@ github_actions_passed_tests{action_id="${GITHUB_RUN_NUMBER}",commit="${GITHUB_SH
 github_actions_failed_tests{action_id="${GITHUB_RUN_NUMBER}",commit="${GITHUB_SHA}", actor="${GITHUB_ACTOR}", branch="${GITHUB_REF}"} $(echo ${TEST_RESULTS_STRING} | awk -F'"' '{ print $8 }')
 github_actions_skipped_tests{action_id="${GITHUB_RUN_NUMBER}",commit="${GITHUB_SHA}", actor="${GITHUB_ACTOR}", branch="${GITHUB_REF}"} $(echo ${TEST_RESULTS_STRING} | awk -F'"' '{ print $10 }')
 EOF
+
+echo " gha.maventest.ignored=$(echo ${TEST_RESULTS_STRING} | awk -F'"' '{ print $2 }')" >> $BUILDEVENT_FILE
+echo " gha.maventest.total=$(echo ${TEST_RESULTS_STRING} | awk -F'"' '{ print $2 }')" >> $BUILDEVENT_FILE
+echo " gha.maventest.passed=$(echo ${TEST_RESULTS_STRING} | awk -F'"' '{ print $2 }')" >> $BUILDEVENT_FILE
+echo " gha.maventest.failed=$(echo ${TEST_RESULTS_STRING} | awk -F'"' '{ print $2 }')" >> $BUILDEVENT_FILE
+echo " gha.maventest.skipped=$(echo ${TEST_RESULTS_STRING} | awk -F'"' '{ print $2 }')" >> $BUILDEVENT_FILE
