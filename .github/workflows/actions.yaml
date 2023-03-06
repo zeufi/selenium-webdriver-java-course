@@ -13,8 +13,10 @@ on:
 jobs:
   build_and_test_chrome:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        browser: ['chrome', 'firefox'] # specify the values for the browser parameter
     env:
-      browser: chrome
       RUNNER_OS: true
       HEADLESS_CHROME: true
       BUILDEVENT_FILE: './buildevents.txt'
@@ -36,10 +38,10 @@ jobs:
         if: always()
         run: |
           echo "STEP_START=$(date +%s)" >> $GITHUB_ENV
-          echo "STEP_ID=run-maven-tests-chrome" >> $GITHUB_ENV
-      - name: Run tests with maven on Chrome
+          echo "STEP_ID=run-maven-tests-$browser" >> $GITHUB_ENV
+      - name: Run tests with maven on $browser
         working-directory: webdriver_java
-        run: mvn test
+        run: mvn test -Dbrowser=$browser # pass the browser parameter to the Maven command
       - name: Telemetry - Collect build data
         working-directory: webdriver_java
         env:
@@ -48,8 +50,9 @@ jobs:
         if: always()
         run: |
           echo "github_actions_total_duration $(expr $(date +%s) - ${START_TIME})" | curl --data-binary @- ${PUSHGATEWAY_URL}/metrics/job/github_actions
-          ./resources/tr_chrome_script.sh
+          ./resources/tr_${browser}_script.sh # run the script based on the browser parameter
           buildevents step $TRACE_ID $STEP_ID $STEP_START $STEP_ID
+
 
 #  build_and_test_firefox:
 #    runs-on: ubuntu-latest
