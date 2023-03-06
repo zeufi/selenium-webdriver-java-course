@@ -55,7 +55,7 @@ public class BaseTests {
     public void recordFailure(ITestResult result){
         if(ITestResult.FAILURE == result.getStatus())
         {
-            TakesScreenshot camera = (TakesScreenshot)driver;
+            TakesScreenshot camera = driver;
             File screenshot = camera.getScreenshotAs(OutputType.FILE);
             try{
                 Files.move(screenshot, new File("resources/screenshots/" + result.getName() + ".png"));
